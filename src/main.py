@@ -26,3 +26,5 @@ class TemperatureConverter:
             return self.temperature + 273.15
         else:
             return self.temperature
+
+print("Olá, este é um teste")
