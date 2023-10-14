@@ -26,3 +26,5 @@ class TemperatureConverter:
             return self.temperature + 273.15
         else:
             return self.temperature
+        
+# print(TemperatureConverter(10, 'F').to_kelvin())

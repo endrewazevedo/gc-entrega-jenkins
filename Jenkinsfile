@@ -18,9 +18,26 @@ pipeline {
         
         stage('Test') {
             steps {
-                bat 'pytest src/test_main.py'
-                bat 'py.test --cov=src src/'
+                script {
+                    def testExitCode = bat returnStatus: true, script: 'pytest src/test_main.py -s'
+                    if (testExitCode != 0) {
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+
+                script {
+                    def testExitCode = bat returnStatus: true, script: 'py.test --cov=src src/'
+                    if (testExitCode != 0) {
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
             }
+        }
+    }
+
+    post {
+        unstable {
+            always()
         }
     }
 }
